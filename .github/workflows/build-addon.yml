@@ -1,11 +1,15 @@
 name: build-addon
 
 # Build the Grablo add-on image for amd64 + aarch64 and push to GHCR
-# (ghcr.io/grablo/{arch}-addon-grablo). Tag with the version from grablo/config.yaml.
+# (ghcr.io/grablo/{arch}-addon-grablo), tagged with the version from grablo/config.yaml.
 #   - on a version tag push (v1.20.0, …) → publishes that release
-#   - manual run (workflow_dispatch) → rebuilds current config.yaml version
+#   - manual run (workflow_dispatch) → rebuilds the current config.yaml version
 # Requires the matching grablo_<version>_<arch>.deb to already be on the CDN
 # (the Dockerfile fetches it at build time).
+#
+# Each architecture is a separate single-arch image (HA substitutes {arch} in the
+# add-on's `image:` and pulls the matching one). Built with Docker Buildx — the
+# home-assistant/builder action was deprecated (last release 2026.02.1).
 on:
   push:
     tags: ['v*']
@@ -20,26 +24,52 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        arch: [amd64, aarch64]
+        include:
+          - arch: amd64
+            platform: linux/amd64
+            base: ghcr.io/home-assistant/amd64-base-debian:bullseye
+          - arch: aarch64
+            platform: linux/arm64
+            base: ghcr.io/home-assistant/aarch64-base-debian:bullseye
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
+
+      - uses: docker/setup-qemu-action@v4
+      - uses: docker/setup-buildx-action@v4
+
+      - name: Read add-on version
+        id: meta
+        run: |
+          v=$(sed -nE 's/^version: *"?([^"]+)"?.*/\1/p' grablo/config.yaml)
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+          echo "Add-on version: $v"
 
       - name: Login to GHCR
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # The HA builder reads grablo/config.yaml (version) and grablo/build.yaml
-      # (build_from + args), builds the add-on, and pushes the image. --image /
-      # --docker-hub set the push target explicitly (matches `image:` in config.yaml).
       - name: Build & push ${{ matrix.arch }}
-        uses: home-assistant/builder@master
+        uses: docker/build-push-action@v7
         with:
-          args: |
-            --${{ matrix.arch }} \
-            --target grablo \
-            --image "{arch}-addon-grablo" \
-            --docker-hub "ghcr.io/grablo" \
-            --addon
+          context: grablo
+          platforms: ${{ matrix.platform }}
+          build-args: |
+            BUILD_FROM=${{ matrix.base }}
+            GRABLO_VERSION=${{ steps.meta.outputs.version }}
+          tags: |
+            ghcr.io/grablo/${{ matrix.arch }}-addon-grablo:${{ steps.meta.outputs.version }}
+            ghcr.io/grablo/${{ matrix.arch }}-addon-grablo:latest
+          # io.hass.* labels mirror what home-assistant/builder produced, so the
+          # Supervisor treats the prebuilt image the same way.
+          labels: |
+            io.hass.name=Grablo IoT Core
+            io.hass.description=Grablo IoT Core add-on for Home Assistant
+            io.hass.arch=${{ matrix.arch }}
+            io.hass.type=addon
+            io.hass.url=https://grablo.co
+            io.hass.version=${{ steps.meta.outputs.version }}
+          push: true
+          provenance: false
