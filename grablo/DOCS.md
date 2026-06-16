@@ -16,20 +16,17 @@ and expose Home Assistant entities.
 
 ## What you can do
 
-- **Block coding** — build programs by placing and nesting blocks: math, date/time,
-  text, JSON/XML, files, scheduling, database, multimedia, network, IoT and
-  industrial communication.
-- **Algorithm blocks** — express goals as *conditions* and *actions* for powerful,
-  flexible logic — no programming required.
-- **AI without ML expertise** — built-in vision (object detection, face recognition,
-  pose estimation, hand & color tracking) and audio (speech-to-text, text-to-speech);
-  connect custom models such as Teachable Machine or Edge Impulse.
-- **Device library** — Arduino / Raspberry Pi device libraries built in: search a
-  device, pick a command, use it right away.
-- **Web & mobile dashboard** — control and monitor your devices from any browser or
-  your phone, with no extra setup; build widgets in a few clicks.
-- **Home Assistant** — read and control HA entities from your Grablo logic, and
-  expose Grablo variables back to Home Assistant as entities.
+- **No-code automation** — build logic visually with blocks (conditions, actions,
+  controls) in the web app; the Grablo engine runs it on the controller.
+- **Industrial & IoT protocols** — MQTT, Modbus (RTU/TCP, master & slave), OPC-UA,
+  HTTP, Zigbee (bundled Zigbee2MQTT), Telegram, email.
+- **AI vision & audio** — object/face detection, pose, hand, OCR, QR, color & line
+  tracking; speech-to-text / text-to-speech (cloud or on-device); custom models
+  (Teachable Machine, Edge Impulse).
+- **Home Assistant** — read and control HA entities, and expose Grablo variables back
+  as entities.
+- **Dashboard & data** — web and mobile dashboard; database, data logging, LLM
+  queries, and notifications (push, Telegram, email).
 
 ---
 
@@ -53,6 +50,9 @@ token.
    appears.
 3. Build your project, add the **Home Assistant** integration, and keep
    **Add-on mode** on.
+
+New to Grablo? Browse the [Project Gallery](https://app.grablo.co/gallery) for
+ready-made templates you can copy.
 
 Your device identity, settings, AI/speech models, security keys and Zigbee pairing
 are stored on the add-on's `/data` volume, so they **survive add-on updates and

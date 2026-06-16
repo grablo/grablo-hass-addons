@@ -3,11 +3,10 @@
 Official [Home Assistant](https://www.home-assistant.io/) add-on repository for
 [Grablo](https://grablo.co).
 
-**Grablo** is a web-based, no-code platform for building AI-powered IoT projects —
-no programming required. You build logic by placing blocks instead of writing code,
-add AI vision and audio without any machine-learning expertise, use a built-in
-device library, and monitor and control everything from a web and mobile dashboard —
-anywhere, with no extra setup.
+**Grablo** is a web-based, no-code platform for AI-powered IoT and automation. Build
+logic visually with blocks — no programming required — add AI vision and audio,
+connect industrial and IoT protocols (MQTT, Modbus, OPC-UA, Zigbee and more), and
+monitor and control everything from a web and mobile dashboard, anywhere.
 
 ## Installation
 
