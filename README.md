@@ -5,12 +5,13 @@ Official [Home Assistant](https://www.home-assistant.io/) add-on repository for
 
 **Grablo** is a web-based, no-code platform for building AI-powered IoT projects —
 no programming required. You build logic by placing blocks instead of writing code,
-add AI vision and voice without any machine-learning expertise, use a built-in
-device library, and monitor and control everything from a web dashboard, anywhere.
+add AI vision and audio without any machine-learning expertise, use a built-in
+device library, and monitor and control everything from a web and mobile dashboard —
+anywhere, with no extra setup.
 
 ## Installation
 
-1. In Home Assistant, go to **Settings → Add-ons → Add-on Store**.
+1. In Home Assistant, go to **Settings → Apps → App store**.
 2. Click the **⋮** menu (top right) → **Repositories**.
 3. Add this URL:
 
@@ -32,15 +33,8 @@ projects right beside Home Assistant — and read, control, and expose Home Assi
 entities from your Grablo logic. Run as an add-on, it connects to Home Assistant
 automatically, with no manual setup.
 
-You build and control everything from the [Grablo web app](https://grablo.co); the
+You build and control everything from the [Grablo web app](https://app.grablo.co); the
 add-on has no UI of its own. See the add-on's [documentation](grablo/DOCS.md).
-
-## How images are distributed
-
-Add-on images are pre-built for `amd64` and `aarch64` by GitHub Actions and
-published to the GitHub Container Registry (`ghcr.io/grablo/{arch}-addon-grablo`),
-so installing is a fast pull instead of an on-device build. Each image bakes in the
-official Grablo release fetched from the public CDN (`downloads.grablo.co`).
 
 ## Links
 

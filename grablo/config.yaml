@@ -39,14 +39,9 @@ udev: true
 usb: true
 uart: true   # serial/UART devices, incl. /dev/serial/by-id
 
-# Persist device identity + settings so pairing survives add-on updates.
-map:
-  - addon_config:rw
-
-options:
-  license_key: ""
-schema:
-  license_key: str?
+# Device identity, settings, models, keys and Zigbee pairing persist on the add-on's
+# /data volume (handled by the entrypoint), so they survive updates and restarts.
+# No options to configure — everything is set up in the Grablo web app.
 
 # ── Camera (AI vision) ───────────────────────────────────────────────────────
 # USB cameras work WITHOUT full_access/privileged: controller 1.20.0+ enumerates
