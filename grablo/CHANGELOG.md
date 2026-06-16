@@ -1,10 +1,5 @@
 # Changelog
 
-## 1.20.1
-
-- Fix USB camera detection: expose host video devices (`/dev/video*`) to the add-on so
-  the controller finds USB cameras via V4L2.
-
 ## 1.20.0
 
 Initial release. Grablo IoT Core as a Home Assistant add-on.
