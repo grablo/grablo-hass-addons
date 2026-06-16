@@ -28,24 +28,26 @@ homeassistant_api: true
 # Supervisor injects PulseAudio → TTS / STT / media. (Verified working in a container.)
 audio: true
 
-# Device enumeration (USB camera V4L2 lookup, USB hot-plug).
+# Device enumeration (USB hot-plug, V4L2 camera lookup).
 udev: true
 
-# USB hardware WITHOUT full_access/privileged (controller 1.20.0+ uses V4L2 for cameras):
-#   USB camera (AI video) — /dev/video*, /dev/media*
-#   USB serial (Modbus RTU) / Zigbee dongle — /dev/ttyUSB*, /dev/ttyACM*
+# Hardware access (no full_access / privileged needed):
+#   video: host video nodes /dev/video* — USB camera (AI video, V4L2)
+#   usb:   raw USB /dev/bus/usb + hot-plug
+#   uart:  serial / UART devices (Modbus RTU, Zigbee dongle), incl. /dev/serial/by-id
+video: true
 usb: true
-uart: true   # serial/UART devices, incl. /dev/serial/by-id
+uart: true
 
 # Device identity, settings, models, keys and Zigbee pairing persist on the add-on's
 # /data volume (handled by the entrypoint), so they survive updates and restarts.
 # No options to configure — everything is set up in the Grablo web app.
 
 # ── Camera (AI vision) ───────────────────────────────────────────────────────
-# USB cameras work WITHOUT full_access/privileged: controller 1.20.0+ enumerates
-# and captures them via V4L2 (/dev/video*), and `usb: true` + `udev: true` above
-# expose the nodes. (CSI cameras need libcamera + broad access — out of scope.)
-# If a specific camera isn't detected, attach its node(s) explicitly:
+# USB cameras work without full_access/privileged: the controller enumerates and
+# captures them via V4L2 (/dev/video*), exposed by `video: true` above.
+# (CSI cameras need libcamera + broad access — out of scope.)
+# If a specific camera still isn't detected, attach its node(s) explicitly:
 #   devices:
 #     - /dev/video0
 #     - /dev/media0
