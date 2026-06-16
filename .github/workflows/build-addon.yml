@@ -1,0 +1,45 @@
+name: build-addon
+
+# Build the Grablo add-on image for amd64 + aarch64 and push to GHCR
+# (ghcr.io/grablo/{arch}-addon-grablo). Tag with the version from grablo/config.yaml.
+#   - on a version tag push (v1.20.0, …) → publishes that release
+#   - manual run (workflow_dispatch) → rebuilds current config.yaml version
+# Requires the matching grablo_<version>_<arch>.deb to already be on the CDN
+# (the Dockerfile fetches it at build time).
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [amd64, aarch64]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # The HA builder reads grablo/config.yaml (version) and grablo/build.yaml
+      # (build_from + args), builds the add-on, and pushes the image. --image /
+      # --docker-hub set the push target explicitly (matches `image:` in config.yaml).
+      - name: Build & push ${{ matrix.arch }}
+        uses: home-assistant/builder@master
+        with:
+          args: |
+            --${{ matrix.arch }} \
+            --target grablo \
+            --image "{arch}-addon-grablo" \
+            --docker-hub "ghcr.io/grablo" \
+            --addon
