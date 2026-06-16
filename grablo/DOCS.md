@@ -1,38 +1,47 @@
 # Grablo IoT Core
 
-**Build expert‑level AI IoT devices — without coding.**
+**Turn imagination into reality — build expert‑level AI IoT devices without coding.**
 
-[Grablo](https://grablo.co) is a web‑based, no‑code platform for AI IoT. Place
-blocks instead of writing code, and control everything from a web dashboard —
-anywhere. This add‑on runs **Grablo IoT Core** right next to Home Assistant so
-your Grablo projects can read, control, and expose Home Assistant entities.
+[Grablo](https://grablo.co) is a web‑based, no‑code platform for AI‑powered IoT. You
+build logic by placing blocks instead of writing code, add AI vision and voice
+without any machine‑learning expertise, and monitor and control your devices from a
+web dashboard, from anywhere. This add‑on runs the Grablo engine right next to Home
+Assistant, so your Grablo projects can also read, control, and expose Home Assistant
+entities.
 
-> You pair and control the device from the **[Grablo web app](https://grablo.co)** —
+> You build and control everything from the **[Grablo web app](https://grablo.co)** —
 > this add‑on does not serve its own UI.
 
 ---
 
 ## What you can do
 
-- **Algorithm blocks** — build logic by placing blocks, no programming required.
-- **Web dashboard** — monitor and control your device from anywhere.
-- **AI, no ML knowledge needed** — vision (object detection, face recognition,
-  pose, hand tracking) and voice (speech‑to‑text, text‑to‑speech).
-- **Device library** — Arduino‑style device libraries built in.
-- **Home Assistant** — expose Grablo variables as HA entities, and read/control
-  existing HA entities from your Grablo logic.
+- **Block coding** — build programs by placing and nesting blocks: math, date/time,
+  text, JSON/XML, files, scheduling, database, multimedia, network, IoT and
+  industrial communication.
+- **Algorithm blocks** — express goals as *conditions* and *actions* for powerful,
+  flexible logic — no programming required.
+- **AI without ML expertise** — built‑in vision (object detection, face recognition,
+  pose estimation, hand & color tracking) and voice (speech‑to‑text, text‑to‑speech);
+  connect custom models such as Teachable Machine or Edge Impulse.
+- **Device library** — Arduino / Raspberry Pi device libraries built in: search a
+  device, pick a command, use it right away.
+- **Web dashboard** — control and monitor your devices from anywhere; build widgets
+  in a few clicks.
+- **Home Assistant** — read and control HA entities from your Grablo logic, and
+  expose Grablo variables back to Home Assistant as entities.
 
 ---
 
-## Home Assistant connection (zero‑config)
+## Home Assistant connection
 
-When Grablo runs as this add‑on, it can talk to Home Assistant **through the
-Supervisor — no Long‑Lived Access Token required.**
+When Grablo runs as this add‑on, it connects to your Home Assistant **automatically —
+there is no access token to set up.**
 
-In the Grablo web app, open the device's **Home Assistant** settings and turn on
-**Add‑on mode** (default on). The connection address and token are filled in
-automatically. Turn it off only if you want to connect to a *different* Home
-Assistant instance, in which case enter that server's address and token.
+In the Grablo web app, open the device's **Home Assistant** settings and keep
+**Add‑on mode** on (the default). Turn it off only if you want to connect to a
+*different* Home Assistant instance, in which case enter that server's address and
+token.
 
 ---
 
@@ -40,14 +49,14 @@ Assistant instance, in which case enter that server's address and token.
 
 1. **Install** this add‑on and press **Start**.
 2. Once it connects to the Grablo cloud, open the
-   **[Grablo web app](https://grablo.co)**, sign in, and **pair** the device
-   that appears.
+   **[Grablo web app](https://grablo.co)**, sign in, and **pair** the device that
+   appears.
 3. Build your project, add the **Home Assistant** integration, and keep
    **Add‑on mode** on.
 
-Your device identity, settings, AI/speech models, security keys and Zigbee
-pairing are stored on the add‑on's `/data` volume, so they **survive add‑on
-updates and restarts**.
+Your device identity, settings, AI/speech models, security keys and Zigbee pairing
+are stored on the add‑on's `/data` volume, so they **survive add‑on updates and
+restarts**.
 
 ---
 
@@ -58,9 +67,9 @@ updates and restarts**.
 | `license_key` | Optional Grablo license key. Leave empty for the free tier. |
 
 Hardware — USB camera (AI video, via V4L2), USB serial (Modbus RTU), Zigbee dongle,
-and audio — is provided by the Supervisor through the add‑on's permissions
-(host network, audio, usb, uart, udev). **No `privileged` / `full_access` needed.**
-If a specific USB camera isn't detected, add its node under `devices:` (e.g. `/dev/video0`).
+and audio — is provided by the Supervisor through the add‑on's permissions (host
+network, audio, usb, uart, udev). **No `privileged` / `full_access` needed.** If a
+specific USB camera isn't detected, add its node under `devices:` (e.g. `/dev/video0`).
 
 ---
 

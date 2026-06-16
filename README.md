@@ -1,7 +1,12 @@
 # Grablo Home Assistant Add-ons
 
 Official [Home Assistant](https://www.home-assistant.io/) add-on repository for
-[Grablo](https://grablo.co) — the web-based, no-code platform for AI IoT.
+[Grablo](https://grablo.co).
+
+**Grablo** is a web-based, no-code platform for building AI-powered IoT projects —
+no programming required. You build logic by placing blocks instead of writing code,
+add AI vision and voice without any machine-learning expertise, use a built-in
+device library, and monitor and control everything from a web dashboard, anywhere.
 
 ## Installation
 
@@ -22,19 +27,20 @@ Official [Home Assistant](https://www.home-assistant.io/) add-on repository for
 
 ### [Grablo IoT Core](grablo/)
 
-Run Grablo IoT Core next to Home Assistant — MQTT, Modbus, OPC-UA, HTTP, AI,
-audio (TTS/STT/media) and remote control. When run as this add-on, it connects to
-Home Assistant through the Supervisor automatically — **no Long-Lived Access Token
-needed**. You pair and control the device from the [Grablo web app](https://grablo.co).
+Runs the Grablo engine on your Home Assistant host, so you can build and run Grablo
+projects right beside Home Assistant — and read, control, and expose Home Assistant
+entities from your Grablo logic. Run as an add-on, it connects to Home Assistant
+automatically, with no manual setup.
 
-See the add-on's [documentation](grablo/DOCS.md).
+You build and control everything from the [Grablo web app](https://grablo.co); the
+add-on has no UI of its own. See the add-on's [documentation](grablo/DOCS.md).
 
 ## How images are distributed
 
 Add-on images are pre-built for `amd64` and `aarch64` by GitHub Actions and
 published to the GitHub Container Registry (`ghcr.io/grablo/{arch}-addon-grablo`),
-so installation is a fast pull instead of an on-device build. Each image bakes in
-the official Grablo release fetched from the public CDN (`downloads.grablo.co`).
+so installing is a fast pull instead of an on-device build. Each image bakes in the
+official Grablo release fetched from the public CDN (`downloads.grablo.co`).
 
 ## Links
 
