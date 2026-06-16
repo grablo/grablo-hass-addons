@@ -76,4 +76,5 @@ detected, add its node under `devices:` (e.g. `/dev/video0`).
 
 - Website: **https://grablo.co**
 - Web app: **https://app.grablo.co**
+- Template gallery: **https://app.grablo.co/gallery**
 - Documentation & release notes: **https://doc.grablo.co**

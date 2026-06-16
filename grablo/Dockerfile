@@ -5,7 +5,6 @@ ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
 ARG GRABLO_VERSION=1.20.0
-ARG TARGETARCH
 ENV DEBIAN_FRONTEND=noninteractive \
     LD_LIBRARY_PATH=/usr/lib/grablo \
     GRABLO_CONTAINER=1 \
@@ -27,7 +26,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
  && rm -rf /var/lib/apt/lists/*
 
 RUN set -eux; \
-    arch="${TARGETARCH:-amd64}"; \
+    arch="$(dpkg --print-architecture)"; \
     curl -fsSL -o /tmp/grablo.deb \
       "https://downloads.grablo.co/releases/grablo_${GRABLO_VERSION}_${arch}.deb"; \
     dpkg-deb -x /tmp/grablo.deb /tmp/grablo-root; \
