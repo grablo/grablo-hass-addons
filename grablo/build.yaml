@@ -1,0 +1,12 @@
+# Architecture-specific HA base images (Debian bullseye → matches grablo's build ABI).
+build_from:
+  amd64: ghcr.io/home-assistant/amd64-base-debian:bullseye
+  aarch64: ghcr.io/home-assistant/aarch64-base-debian:bullseye
+args:
+  GRABLO_VERSION: "1.20.0"
+labels:
+  org.opencontainers.image.title: "Grablo IoT Core"
+  org.opencontainers.image.source: "https://github.com/grablo/grablo-hass-addons"
+  org.opencontainers.image.url: "https://grablo.co"
+  org.opencontainers.image.vendor: "Grablo"
+  org.opencontainers.image.licenses: "LicenseRef-Proprietary"

@@ -1,0 +1,58 @@
+# Grablo IoT Core — Home Assistant add-on manifest
+name: Grablo IoT Core
+version: "1.20.0"
+slug: grablo
+description: >-
+  Run Grablo IoT Core next to Home Assistant — MQTT, Modbus, OPC-UA, HTTP, AI,
+  audio (TTS/STT/media) and remote control. Paired and controlled from the Grablo web app.
+url: https://grablo.co
+arch:
+  - amd64
+  - aarch64
+
+# Pre-built image published by CI (see .github/workflows/build-addon.yml). The
+# Supervisor substitutes {arch} (amd64/aarch64) and pulls it — no on-device build.
+# The image tag tracks `version` above.
+image: "ghcr.io/grablo/{arch}-addon-grablo"
+
+# grablo runs its own process (entrypoint) as the add-on's main process.
+init: false
+
+# WebRTC P2P + outbound MQTT need the host network.
+host_network: true
+
+# Grant the Supervisor-proxied Core API + inject SUPERVISOR_TOKEN, so Grablo can
+# talk to Home Assistant as an add-on WITHOUT the user creating a Long-Lived token.
+# (The controller auto-detects SUPERVISOR_TOKEN and uses http://supervisor/core/…;
+#  if the user configures an explicit host+LLAT, that takes priority — e.g. remote HA.)
+homeassistant_api: true
+
+# Supervisor injects PulseAudio → TTS / STT / media. (Verified working in a container.)
+audio: true
+
+# Device enumeration (USB camera V4L2 lookup, USB hot-plug).
+udev: true
+
+# USB hardware WITHOUT full_access/privileged (controller 1.20.0+ uses V4L2 for cameras):
+#   USB camera (AI video) — /dev/video*, /dev/media*
+#   USB serial (Modbus RTU) / Zigbee dongle — /dev/ttyUSB*, /dev/ttyACM*
+usb: true
+uart: true   # serial/UART devices, incl. /dev/serial/by-id
+
+# Persist device identity + settings so pairing survives add-on updates.
+map:
+  - addon_config:rw
+
+options:
+  license_key: ""
+schema:
+  license_key: str?
+
+# ── Camera (AI vision) ───────────────────────────────────────────────────────
+# USB cameras work WITHOUT full_access/privileged: controller 1.20.0+ enumerates
+# and captures them via V4L2 (/dev/video*), and `usb: true` + `udev: true` above
+# expose the nodes. (CSI cameras need libcamera + broad access — out of scope.)
+# If a specific camera isn't detected, attach its node(s) explicitly:
+#   devices:
+#     - /dev/video0
+#     - /dev/media0
