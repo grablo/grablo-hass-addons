@@ -3,8 +3,9 @@ name: Grablo IoT Core
 version: "1.20.0"
 slug: grablo
 description: >-
-  Run Grablo IoT Core next to Home Assistant — MQTT, Modbus, OPC-UA, HTTP, AI,
-  audio (TTS/STT/media) and remote control. Paired and controlled from the Grablo web app.
+  Run Grablo IoT Core next to Home Assistant. A no-code platform for AI IoT and
+  automation: build logic with blocks, use AI vision and audio, and connect MQTT,
+  Modbus, OPC-UA, Zigbee and more. Build and control it from the Grablo web app.
 url: https://grablo.co
 arch:
   - amd64
