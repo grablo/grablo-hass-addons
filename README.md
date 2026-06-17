@@ -10,27 +10,14 @@ from a web and mobile dashboard.
 
 ## Installation
 
-### Quick add (recommended)
+Click the button below:
 
-Click the button below to open the **Add repository** dialog in your Home Assistant
-with the URL pre-filled, then press **Add**:
+[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fgrablo%2Fgrablo-hass-addons)
 
-[![Open your Home Assistant instance and show the add add-on repository dialog with this repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fgrablo%2Fgrablo-hass-addons)
+Or, in your Home Assistant, navigate to **Settings > Add-ons > Add-on Store > ⋮ >
+Repositories** and add `https://github.com/grablo/grablo-hass-addons` to the list.
 
 Then find **Grablo IoT Core** in the store and press **Install**.
-
-### Manual
-
-1. In Home Assistant, go to **Settings → Apps → App store**.
-2. Click the **⋮** menu (top right) and choose **Repositories**.
-3. Add this URL:
-
-   ```
-   https://github.com/grablo/grablo-hass-addons
-   ```
-
-4. The **Grablo IoT Core** add-on now appears in the store. Click it and press
-   **Install**.
 
 ## Add-ons in this repository
 
