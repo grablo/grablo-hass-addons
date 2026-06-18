@@ -1,6 +1,6 @@
 # Grablo IoT Core — Home Assistant add-on manifest
 name: Grablo IoT Core
-version: "1.20.0"
+version: "1.21.0"
 slug: grablo
 description: Build AI IoT and automation projects without coding, next to Home Assistant
 url: https://grablo.co
