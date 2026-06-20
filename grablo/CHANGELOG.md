@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.22.0
+
+- AI: stabilized model output timing; detection confidence hysteresis to remove
+  boundary flicker on object/face detection.
+- AI: face-recognition identity sessions anchored to ByteTrack tracks for steadier IDs.
+- Actions: calling a disabled action group / control / control group is now skipped
+  as success instead of raising an error.
+- Conditions: fixed schedule / time-range condition edge cases.
+- File system: added DATA_DIR command; consistent HOME/TEMP/DATA accessors.
+- Data log: FILE_FETCH max dimension raised to 4096 (full-screen fit).
+
+Full release notes: https://doc.grablo.co
+
 ## 1.21.0
 
 - Faster RUN startup: the engine now initializes only the devices and integrations that the
