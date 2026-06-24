@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.23.0
+
+- AI object detection engine switched to YOLOX (ncnn + Vulkan) for better accuracy.
+- AI: per-detection input-region (ROI) cropping extended to all vision models.
+- AI: object-detection commands consolidated with multi-class filtering.
+- AI: detection-FPS cap with box smoothing (hold) to remove trailing artifacts.
+- AI: model output timing stabilized; detection confidence hysteresis.
+- Push notifications: attached images are downscaled to a banner thumbnail.
+
+Full release notes: https://doc.grablo.co
+
 ## 1.22.0
 
 - AI: stabilized model output timing; detection confidence hysteresis to remove
