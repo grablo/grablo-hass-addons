@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.24.0
+
+- Fix MQTT subscribe when the client ID is empty (force clean session so standard brokers accept it).
+- Deterministic speech model path resolution for TTS/STT.
+- File downloads integrated into demand-init (only active features are fetched).
+
+Full release notes: https://doc.grablo.co
+
 ## 1.23.0
 
 - AI object detection engine switched to YOLOX (ncnn + Vulkan) for better accuracy.
