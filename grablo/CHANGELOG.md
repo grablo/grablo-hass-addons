@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.24.1
+
+- Fix a vision processing concurrency bug (use-after-free) that could crash the controller under load.
+- Clear stale logic state when preparing a RUN, so a previously failed RUN no longer leaves residual logic behind.
+
+Full release notes: https://doc.grablo.co
+
 ## 1.24.0
 
 - Fix MQTT subscribe when the client ID is empty (force clean session so standard brokers accept it).
