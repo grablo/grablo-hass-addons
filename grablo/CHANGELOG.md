@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.25.0
+
+- Add a "hold" option to the delay timer (PEND) that keeps the output on while the condition stays true, and restore the original timer to its proper behavior.
+- Improve log management: delete multiple logs at once with their captured files, apply the retention limit to manual entries, and reclaim storage automatically.
+- Show the number of enrolled samples per person in the face recognition list, and block invalid characters in names that could corrupt the list.
+- Automatically recover live camera video that could get stuck while connecting.
+- Detect capture saves that could silently fail when storage is full, and fix captures saved to subfolders.
+- Fix a rare error during video recognition processing for more stable operation.
+
+Full release notes: https://doc.grablo.co
+
 ## 1.24.1
 
 - Fix a vision processing concurrency bug (use-after-free) that could crash the controller under load.
