@@ -21,20 +21,27 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # Each arch builds on its OWN native runner (no QEMU emulation):
+    #   amd64   → ubuntu-latest     (x86_64 native)
+    #   aarch64 → ubuntu-24.04-arm  (arm64 native, free for public repos)
+    # Removes the slow/flaky QEMU arm64 emulation (SIGSEGV, ~80min stalls).
+    runs-on: ${{ matrix.runner }}
     strategy:
+      fail-fast: false
       matrix:
         include:
           - arch: amd64
+            runner: ubuntu-latest
             platform: linux/amd64
             base: ghcr.io/home-assistant/amd64-base-debian:bullseye
           - arch: aarch64
+            runner: ubuntu-24.04-arm
             platform: linux/arm64
             base: ghcr.io/home-assistant/aarch64-base-debian:bullseye
     steps:
       - uses: actions/checkout@v6
 
-      - uses: docker/setup-qemu-action@v4
+      # Native runner per arch → QEMU no longer needed.
       - uses: docker/setup-buildx-action@v4
 
       - name: Read versions
