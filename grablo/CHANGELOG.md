@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.25.1
+
+- Fix ONVIF camera discovery so cameras that advertise an unreachable service address (e.g. some Dahua models) now connect reliably by matching the address that actually replied.
+- Fix the SQL Database output action inserting each row twice, and harden database result handling for NULL cells and multi-row results.
+
+Full release notes: https://doc.grablo.co
+
 ## 1.25.0
 
 - Add a "hold" option to the delay timer (PEND) that keeps the output on while the condition stays true, and restore the original timer to its proper behavior.
