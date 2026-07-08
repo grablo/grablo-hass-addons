@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.25.2
+
+- Harden ONVIF camera handling for reliability with multiple cameras: fix rare parallel-initialization thread-safety races and memory-safety issues across discovery, authentication, and streaming so cameras connect consistently even under heavy or malformed network responses.
+
+Full release notes: https://doc.grablo.co
+
 ## 1.25.1
 
 - Fix ONVIF camera discovery so cameras that advertise an unreachable service address (e.g. some Dahua models) now connect reliably by matching the address that actually replied.
