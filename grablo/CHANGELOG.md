@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.26.0
+
+- On-device Vision AI training and management from Studio: Custom Classification training, live Face enrollment, and License Plate registration — applied without a rebuild.
+- Vision analyzer cards and live previews now show detection confidence (%).
+- Added visual anomaly detection (PatchCore) for inspection use cases.
+
+Full release notes: https://doc.grablo.co
+
 ## 1.25.2
 
 - Harden ONVIF camera handling for reliability with multiple cameras: fix rare parallel-initialization thread-safety races and memory-safety issues across discovery, authentication, and streaming so cameras connect consistently even under heavy or malformed network responses.

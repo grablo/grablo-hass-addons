@@ -3,7 +3,7 @@ build_from:
   amd64: ghcr.io/home-assistant/amd64-base-debian:bullseye
   aarch64: ghcr.io/home-assistant/aarch64-base-debian:bullseye
 args:
-  GRABLO_VERSION: "1.25.2"
+  GRABLO_VERSION: "1.26.0"
 labels:
   org.opencontainers.image.title: "Grablo IoT Core"
   org.opencontainers.image.source: "https://github.com/grablo/grablo-hass-addons"
