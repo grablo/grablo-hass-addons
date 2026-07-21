@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.27.0
+
+- Network audio input: use a network stream (RTSP and other protocols) as an audio source for STT, Audio Analyzer, and AI Audio Analyzer.
+- Network audio streams now automatically reconnect across all protocols after a drop, without restarting the controller.
+- TRIGGER_ONCE is now self-contained: a single one-shot analysis that writes its result without needing a separate continuous subscription.
+- Fixed a crash, lost STT results, and slow teardown during network audio reconnection.
+- Fixed TRIGGER_ONCE losing output for multiple consumers and killing coexisting continuous (ADD) subscriptions.
+
+Full release notes: https://doc.grablo.co
+
 ## 1.26.0
 
 - On-device Vision AI training and management from Studio: Custom Classification training, live Face enrollment, and License Plate registration — applied without a rebuild.
