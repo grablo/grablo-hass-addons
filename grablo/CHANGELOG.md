@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.28.0
+
+- Custom Anomaly: preview inference now runs on demand, draws defect boxes at your own threshold, and reports the decision thresholds actually applied.
+- Custom Anomaly: heatmaps and defect boxes are smoothed (anomalib-style), and the normal-score distribution is returned after fitting.
+- Custom Anomaly inference is roughly 4x faster — distance computation now uses all CPU cores instead of one.
+- Zone/ROI polygon masking is available across all AI analyzers, and face recognition no longer ignores its input region.
+- Training samples can be registered straight from log event snapshots, with untrained sample ids and counts reported back.
+- STOP-mode preview now honors the analyzer settings (detection FPS, GPU, sensitivity, minimum face area).
+- Data logging: actions choose their own log target, channels open lazily with an open-handle limit, and the file-descriptor limit is raised at startup — fixing P2P connection failures caused by fd exhaustion.
+- Fixed logs being unreadable in STOP mode and a deadlock that froze anomaly preview and the AI thread.
+
+Full release notes: https://doc.grablo.co
+
 ## 1.27.0
 
 - Network audio input: use a network stream (RTSP and other protocols) as an audio source for STT, Audio Analyzer, and AI Audio Analyzer.
