@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.28.1
+
+- Region labels are now anchored to the topmost vertex of the shape — on angled polygons the label no longer floats away from the region it names.
+- Regions drawn as polygons were missing their labels entirely; they are now drawn.
+- Labels are kept inside the frame, so regions at the top or right edge no longer have their label clipped or hidden.
+- Region outlines use one consistent colour regardless of shape, so they are no longer confused with detection results.
+
+Full release notes: https://doc.grablo.co
+
 ## 1.28.0
 
 - Custom Anomaly: preview inference now runs on demand, draws defect boxes at your own threshold, and reports the decision thresholds actually applied.
