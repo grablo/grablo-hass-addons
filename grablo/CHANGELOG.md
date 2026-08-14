@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.29.0
+
+- Cameras can now record video. Start and stop continuous recording, or save a clip around a detection that includes the seconds *before* the event happened.
+- Zone entry can now be judged by an object's ground point (the bottom of its box) rather than its centre, which matches how people actually stand in a scene. Existing projects keep the previous centre-based behaviour.
+- Training samples now remember which log entry they came from, so "already registered" is answered by the controller instead of your browser. Changing device or browser no longer loses that.
+- Attachment storage is now managed by free disk space. **When the disk runs low, the oldest photos and video clips in the add-on's own media folders are deleted automatically to make room.** Files saved to your own paths are never touched.
+- Fixed cameras showing no video on machines with no NVIDIA or Intel GPU (AMD-only PCs, VMs, RDP). The stream produced no frames and reconnected endlessly.
+- Fixed continuous recordings being entirely black, and clips overlapping when several detections fired at once.
+
+Full release notes: https://doc.grablo.co
+
 ## 1.28.1
 
 - Region labels are now anchored to the topmost vertex of the shape — on angled polygons the label no longer floats away from the region it names.
