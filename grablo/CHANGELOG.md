@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.29.1
+
+- The log viewer now has a People tab. Faces and appearances that belong to the same person are grouped for you, so you no longer have to find someone before you can find them.
+- Pick a person or a face in a log and find other moments with them.
+- Cameras can record for as long as a detection lasts, not just a fixed clip around it.
+- Similarity search is much faster — a 30-day search now takes about half a second instead of about four.
+- Face lists open immediately, and analysis no longer runs on a scene that isn't moving.
+- Various fixes to person grouping, recording and data logging.
+
+Full release notes: https://doc.grablo.co
+
 ## 1.29.0
 
 - Cameras can now record video. Start and stop continuous recording, or save a clip around a detection that includes the seconds *before* the event happened.
