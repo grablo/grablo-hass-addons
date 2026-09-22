@@ -21,9 +21,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       libusb-1.0-0 libpq5 unixodbc libpulse0 libvulkan1 \
       pulseaudio pulseaudio-utils alsa-utils libharfbuzz0b libxml2 \
       libfreetype6 mosquitto ca-certificates curl \
-      libxcursor1 libxinerama1 libxrandr2 libwayland-cursor0 \
+      libxcursor1 libxinerama1 libxrandr2 libxi6 libwayland-cursor0 \
       libgstreamer1.0-0 libgstreamer-plugins-base1.0-0 \
  && rm -rf /var/lib/apt/lists/*
+# ★ libxi6 는 2026-09-22 trixie 전환에서 **명시로 옮긴 것**이다. bullseye 에서는
+#   다른 패키지의 전이 의존으로 딸려와 목록에 없어도 됐는데, trixie 에서 그 체인이
+#   끊겨 `libXi.so.6 => not found` 가 났다(grablo 본체와 libgrablo-media.so 둘 다).
+#   배포 중인 1.29.1(bullseye) 이미지는 미해결 0 건이라 이것은 전환이 만든 회귀다.
+#   전이 의존에 기대면 베이스가 바뀔 때마다 같은 일이 난다 — 필요한 것은 적어 둔다.
 
 RUN set -eux; \
     arch="$(dpkg --print-architecture)"; \

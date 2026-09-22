@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.29.2
+
+- People cards are much more reliable. A passer-by no longer becomes the cover photo of a seated guest, cards no longer merge two different people who were on screen at the same time, and a card that has grown too broad is split back apart.
+- Cards now appear as the camera sees people, instead of several seconds later.
+- Cameras running at low frame rates (around 3 fps) now keep a stable track, and people who cross paths are followed through the occlusion rather than swapped.
+- Searching by person, face or words is substantially faster, and no longer slows down as the database grows.
+- Face enrolment from a log entry is queued and reported back, and the face database can be managed even while the camera is off.
+- **Control fixes**: a PID loop no longer writes a non-numeric value to an output, Modbus mapping indexes outside the configured read/write length are rejected instead of silently using stale data, and STOP always interrupts a running logic scan.
+- Fixed a crash that could take the controller down after the first STOP.
+- The add-on now runs on Debian trixie. Debian 11 reached the end of its life and its security repository stopped serving packages, which had been blocking this release.
+
+Full release notes: https://doc.grablo.co
+
 ## 1.29.1
 
 - The log viewer now has a People tab. Faces and appearances that belong to the same person are grouped for you, so you no longer have to find someone before you can find them.
