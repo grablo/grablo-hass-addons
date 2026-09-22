@@ -29,15 +29,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # ★ 베이스는 grablo/build.yaml 의 build_from 과 **같아야 한다** — 이 워크플로는 그 파일을
+        #   읽지 않고 여기 값을 BUILD_FROM 으로 넘긴다. 2026-09-22 trixie 전환 때 build.yaml 만
+        #   바꾸고 여기를 빠뜨려 CI 가 bullseye 로 빌드해 두 job 이 다 실패했다(apt 404).
         include:
           - arch: amd64
             runner: ubuntu-latest
             platform: linux/amd64
-            base: ghcr.io/home-assistant/amd64-base-debian:bullseye
+            base: ghcr.io/home-assistant/amd64-base-debian:trixie
           - arch: aarch64
             runner: ubuntu-24.04-arm
             platform: linux/arm64
-            base: ghcr.io/home-assistant/aarch64-base-debian:bullseye
+            base: ghcr.io/home-assistant/aarch64-base-debian:trixie
     steps:
       - uses: actions/checkout@v6
 
