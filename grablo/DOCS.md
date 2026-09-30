@@ -61,4 +61,5 @@ Your settings, models, security keys and Zigbee pairing are stored on the add-on
 - Website: **https://grablo.co**
 - Web app: **https://app.grablo.co**
 - Project gallery: **https://app.grablo.co/gallery**
-- Documentation and release notes: **https://doc.grablo.co**
+- Documentation: **https://grablo.co/studio/manual**
+- Release notes: **https://grablo.co/news**

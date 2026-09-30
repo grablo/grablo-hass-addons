@@ -36,7 +36,8 @@ add-on has no UI of its own. See the add-on's [documentation](grablo/DOCS.md).
 - Website: **https://grablo.co**
 - Web app: **https://app.grablo.co**
 - Project gallery: **https://app.grablo.co/gallery**
-- Documentation & release notes: **https://doc.grablo.co**
+- Documentation: **https://grablo.co/studio/manual**
+- Release notes: **https://grablo.co/news**
 - Standalone Docker (non-Home Assistant): **https://github.com/grablo/grablo-docker**
 
 ## License
