@@ -11,7 +11,7 @@
 - Fixed a crash that could take the controller down after the first STOP.
 - The add-on now runs on Debian trixie. Debian 11 reached the end of its life and its security repository stopped serving packages, which had been blocking this release.
 
-Full release notes: https://doc.grablo.co
+Full release notes: https://grablo.co/news
 
 ## 1.29.1
 
@@ -22,7 +22,7 @@ Full release notes: https://doc.grablo.co
 - Face lists open immediately, and analysis no longer runs on a scene that isn't moving.
 - Various fixes to person grouping, recording and data logging.
 
-Full release notes: https://doc.grablo.co
+Full release notes: https://grablo.co/news
 
 ## 1.29.0
 
@@ -33,7 +33,7 @@ Full release notes: https://doc.grablo.co
 - Fixed cameras showing no video on machines with no NVIDIA or Intel GPU (AMD-only PCs, VMs, RDP). The stream produced no frames and reconnected endlessly.
 - Fixed continuous recordings being entirely black, and clips overlapping when several detections fired at once.
 
-Full release notes: https://doc.grablo.co
+Full release notes: https://grablo.co/news
 
 ## 1.28.1
 
@@ -42,7 +42,7 @@ Full release notes: https://doc.grablo.co
 - Labels are kept inside the frame, so regions at the top or right edge no longer have their label clipped or hidden.
 - Region outlines use one consistent colour regardless of shape, so they are no longer confused with detection results.
 
-Full release notes: https://doc.grablo.co
+Full release notes: https://grablo.co/news
 
 ## 1.28.0
 
@@ -55,7 +55,7 @@ Full release notes: https://doc.grablo.co
 - Data logging: actions choose their own log target, channels open lazily with an open-handle limit, and the file-descriptor limit is raised at startup — fixing P2P connection failures caused by fd exhaustion.
 - Fixed logs being unreadable in STOP mode and a deadlock that froze anomaly preview and the AI thread.
 
-Full release notes: https://doc.grablo.co
+Full release notes: https://grablo.co/news
 
 ## 1.27.0
 
@@ -65,7 +65,7 @@ Full release notes: https://doc.grablo.co
 - Fixed a crash, lost STT results, and slow teardown during network audio reconnection.
 - Fixed TRIGGER_ONCE losing output for multiple consumers and killing coexisting continuous (ADD) subscriptions.
 
-Full release notes: https://doc.grablo.co
+Full release notes: https://grablo.co/news
 
 ## 1.26.0
 
@@ -73,20 +73,20 @@ Full release notes: https://doc.grablo.co
 - Vision analyzer cards and live previews now show detection confidence (%).
 - Added visual anomaly detection (PatchCore) for inspection use cases.
 
-Full release notes: https://doc.grablo.co
+Full release notes: https://grablo.co/news
 
 ## 1.25.2
 
 - Harden ONVIF camera handling for reliability with multiple cameras: fix rare parallel-initialization thread-safety races and memory-safety issues across discovery, authentication, and streaming so cameras connect consistently even under heavy or malformed network responses.
 
-Full release notes: https://doc.grablo.co
+Full release notes: https://grablo.co/news
 
 ## 1.25.1
 
 - Fix ONVIF camera discovery so cameras that advertise an unreachable service address (e.g. some Dahua models) now connect reliably by matching the address that actually replied.
 - Fix the SQL Database output action inserting each row twice, and harden database result handling for NULL cells and multi-row results.
 
-Full release notes: https://doc.grablo.co
+Full release notes: https://grablo.co/news
 
 ## 1.25.0
 
@@ -97,14 +97,14 @@ Full release notes: https://doc.grablo.co
 - Detect capture saves that could silently fail when storage is full, and fix captures saved to subfolders.
 - Fix a rare error during video recognition processing for more stable operation.
 
-Full release notes: https://doc.grablo.co
+Full release notes: https://grablo.co/news
 
 ## 1.24.1
 
 - Fix a vision processing concurrency bug (use-after-free) that could crash the controller under load.
 - Clear stale logic state when preparing a RUN, so a previously failed RUN no longer leaves residual logic behind.
 
-Full release notes: https://doc.grablo.co
+Full release notes: https://grablo.co/news
 
 ## 1.24.0
 
@@ -112,7 +112,7 @@ Full release notes: https://doc.grablo.co
 - Deterministic speech model path resolution for TTS/STT.
 - File downloads integrated into demand-init (only active features are fetched).
 
-Full release notes: https://doc.grablo.co
+Full release notes: https://grablo.co/news
 
 ## 1.23.0
 
@@ -123,7 +123,7 @@ Full release notes: https://doc.grablo.co
 - AI: model output timing stabilized; detection confidence hysteresis.
 - Push notifications: attached images are downscaled to a banner thumbnail.
 
-Full release notes: https://doc.grablo.co
+Full release notes: https://grablo.co/news
 
 ## 1.22.0
 
@@ -136,7 +136,7 @@ Full release notes: https://doc.grablo.co
 - File system: added DATA_DIR command; consistent HOME/TEMP/DATA accessors.
 - Data log: FILE_FETCH max dimension raised to 4096 (full-screen fit).
 
-Full release notes: https://doc.grablo.co
+Full release notes: https://grablo.co/news
 
 ## 1.21.0
 
@@ -146,7 +146,7 @@ Full release notes: https://doc.grablo.co
   with more reliable fallback init and reconnect.
 - Internal logging cleanup.
 
-Full release notes: https://doc.grablo.co
+Full release notes: https://grablo.co/news
 
 ## 1.20.0
 
