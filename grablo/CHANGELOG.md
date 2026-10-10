@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.29.4
+
+- Switching a camera to full screen now turns sharp within about a second, instead of waiting several seconds for the next keyframe.
+- Steadier picture quality in the camera grid: each quality layer is sent at a fixed bitrate.
+- Live video comes back correctly after the app has been hidden for many hours.
+- Cameras that are off screen no longer keep reconnecting.
+- Cars parked at the edge of the picture no longer create a new card every time detection flickers.
+- Faster storage cleanup when the disk is full, and fixes to place data folders.
+
+Full release notes: https://grablo.co/news
+
 ## 1.29.3
 
 - Vehicle recognition: cars get their own cards with the licence plate read across several frames, how long they stayed, and fewer mix-ups between cars that follow each other.
