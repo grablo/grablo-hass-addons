@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.29.3
+
+- Vehicle recognition: cars get their own cards with the licence plate read across several frames, how long they stayed, and fewer mix-ups between cars that follow each other.
+- Live video adapts to how you watch it. The controller sends up to three quality layers and picks the one that fits the window, and stops sending to viewers that are not looking.
+- Live video resumes at once when you come back to the app, instead of freezing for up to 20 seconds while the connection recovers.
+- Boxes and labels on live video are drawn by the app instead of being burned into the stream.
+- The scene timeline shows recorded spans, and a chosen time range can be exported as a single MP4.
+- Each place now keeps its data in its own folder, and existing data is moved over automatically.
+- Various fixes to person cards, recording and data logging.
+
+Full release notes: https://grablo.co/news
+
 ## 1.29.2
 
 - People cards are much more reliable. A passer-by no longer becomes the cover photo of a seated guest, cards no longer merge two different people who were on screen at the same time, and a card that has grown too broad is split back apart.
