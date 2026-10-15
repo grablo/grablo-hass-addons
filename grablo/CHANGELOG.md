@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.29.5
+
+- Always-on recording per camera, split cleanly at keyframes, restarted automatically if it stalls, and kept for the retention period you set.
+- Detection zones per camera: only people and vehicles whose feet are inside the zone are counted, and the zone is drawn on the live view.
+- Event recordings now start 5 seconds before the detection, so short visits are no longer missed.
+- Saved clips can be played while they are still being written.
+- Stopping a project takes a few seconds instead of up to two minutes.
+- More accurate boxes and tracking after a camera stream reconnects, and vehicle search uses the exact picture you picked.
+- Less CPU use: people outside the detection zone are no longer re-identified every frame.
+
+Full release notes: https://grablo.co/news
+
 ## 1.29.4
 
 - Switching a camera to full screen now turns sharp within about a second, instead of waiting several seconds for the next keyframe.
