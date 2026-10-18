@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.29.6
+
+- Deleting events and freeing space for retention no longer leaves orphaned video files on disk, and an event's photos are only removed together with its video.
+- Retention cleanup now runs even when no camera uses always-on recording.
+- Cleaning up old recordings no longer pauses recording or search indexing, and the hidden 1 GB limit on stored data is gone.
+- Exporting a time range starts streaming right away, and playback can jump to the start of the range.
+- Natural-language search reports why it failed, and a temporary memory shortage no longer marks it as failed for good.
+- A project can be restarted with new settings in one step.
+- Fewer GPU driver timeouts right after a new device is added.
+
+Full release notes: https://grablo.co/news
+
 ## 1.29.5
 
 - Always-on recording per camera, split cleanly at keyframes, restarted automatically if it stalls, and kept for the retention period you set.
