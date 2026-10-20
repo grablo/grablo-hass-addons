@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.29.7
+
+- Alerts can be set up by describing what to watch for in words (for example, "person in a red top").
+- Stopping a project no longer takes four to five minutes on sites with many stored vehicle records.
+- Dwell time now follows the period a person was actually seen, including faces not yet matched to a person.
+- Fixed a search index issue that could make person search miss results.
+
+Full release notes: https://grablo.co/news
+
 ## 1.29.6
 
 - Deleting events and freeing space for retention no longer leaves orphaned video files on disk, and an event's photos are only removed together with its video.
