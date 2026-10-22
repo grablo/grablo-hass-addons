@@ -1,19 +1,26 @@
 name: build-addon
 
-# Build the Grablo add-on image for amd64 + aarch64 and push to GHCR
-# (ghcr.io/grablo/{arch}-addon-grablo), tagged with the version from grablo/config.yaml.
-#   - on a version tag push (v1.20.0, …) → publishes that release
-#   - manual run (workflow_dispatch) → rebuilds the current config.yaml version
-# Requires the matching grablo_<version>_<arch>.deb to already be on the CDN
-# (the Dockerfile fetches it at build time).
+# Build an add-on image for amd64 + aarch64 and push to GHCR, tagged with the version from <addon>/config.yaml.
+# Two add-ons, each with its own version line (one controller source, version numbers per product):
+#   grablo/       Grablo IoT Core (Reflex / Studio 1.x)  ghcr.io/grablo/{arch}-addon-grablo        tag v1.29.8, …
+#   grablo-spot/  Grablo Spot (2.x)                        ghcr.io/grablo/{arch}-addon-grablo-spot   tag spot-v2.0.0, …
+#   - manual run (workflow_dispatch) → rebuilds the chosen add-on's current config.yaml version
+# Requires the matching .deb to already be on the CDN (the Dockerfile fetches it at build time):
+#   core releases/grablo_<version>_<arch>.deb · spot releases/spot/grablo-spot_<version>_<arch>.deb
 #
 # Each architecture is a separate single-arch image (HA substitutes {arch} in the
 # add-on's `image:` and pulls the matching one). Built with Docker Buildx — the
 # home-assistant/builder action was deprecated (last release 2026.02.1).
 on:
   push:
-    tags: ['v*']
+    tags: ['v*', 'spot-v*']
   workflow_dispatch:
+    inputs:
+      addon:
+        description: Add-on to build
+        type: choice
+        options: [grablo, grablo-spot]
+        default: grablo
 
 permissions:
   contents: read
@@ -49,13 +56,35 @@ jobs:
 
       - name: Read versions
         id: meta
+        env:
+          INPUT_ADDON: ${{ inputs.addon }}
         run: |
+          # Which add-on: tag spot-v* → grablo-spot, tag v* → grablo, manual run → the chosen input.
+          case "$GITHUB_REF" in
+            refs/tags/spot-v*) addon=grablo-spot ;;
+            refs/tags/v*)      addon=grablo ;;
+            *)                 addon="${INPUT_ADDON:-grablo}" ;;
+          esac
+          case "$addon" in
+            grablo)      product=core; name="Grablo IoT Core" ;;
+            grablo-spot) product=spot; name="Grablo Spot" ;;
+            *) echo "unknown add-on: $addon" >&2; exit 1 ;;
+          esac
           # image tag = add-on version (config.yaml); deb fetched = controller version (build.yaml)
-          v=$(sed -nE 's/^version: *"?([^"]+)"?.*/\1/p' grablo/config.yaml)
-          deb=$(sed -nE 's/^ *GRABLO_VERSION: *"?([^"]+)"?.*/\1/p' grablo/build.yaml)
+          v=$(sed -nE 's/^version: *"?([^"]+)"?.*/\1/p' "$addon/config.yaml")
+          deb=$(sed -nE 's/^ *GRABLO_VERSION: *"?([^"]+)"?.*/\1/p' "$addon/build.yaml")
+          # A tag must name the version it publishes (v1.29.8 ↔ grablo 1.29.8, spot-v2.0.0 ↔ grablo-spot 2.0.0).
+          case "$GITHUB_REF" in
+            refs/tags/*)
+              tag="${GITHUB_REF#refs/tags/}"
+              if [ "${tag#spot-}" != "v$v" ]; then echo "tag $tag does not match $addon/config.yaml version $v" >&2; exit 1; fi ;;
+          esac
+          echo "addon=$addon" >> "$GITHUB_OUTPUT"
+          echo "product=$product" >> "$GITHUB_OUTPUT"
+          echo "name=$name" >> "$GITHUB_OUTPUT"
           echo "version=$v" >> "$GITHUB_OUTPUT"
           echo "deb=$deb" >> "$GITHUB_OUTPUT"
-          echo "add-on version: $v  |  controller deb: $deb"
+          echo "add-on: $addon ($product)  |  version: $v  |  controller deb: $deb"
 
       - name: Login to GHCR
         uses: docker/login-action@v4
@@ -67,19 +96,20 @@ jobs:
       - name: Build & push ${{ matrix.arch }}
         uses: docker/build-push-action@v7
         with:
-          context: grablo
+          context: ${{ steps.meta.outputs.addon }}
           platforms: ${{ matrix.platform }}
           build-args: |
             BUILD_FROM=${{ matrix.base }}
             GRABLO_VERSION=${{ steps.meta.outputs.deb }}
+            GRABLO_PRODUCT=${{ steps.meta.outputs.product }}
           tags: |
-            ghcr.io/grablo/${{ matrix.arch }}-addon-grablo:${{ steps.meta.outputs.version }}
-            ghcr.io/grablo/${{ matrix.arch }}-addon-grablo:latest
+            ghcr.io/grablo/${{ matrix.arch }}-addon-${{ steps.meta.outputs.addon }}:${{ steps.meta.outputs.version }}
+            ghcr.io/grablo/${{ matrix.arch }}-addon-${{ steps.meta.outputs.addon }}:latest
           # io.hass.* labels mirror what home-assistant/builder produced, so the
           # Supervisor treats the prebuilt image the same way.
           labels: |
-            io.hass.name=Grablo IoT Core
-            io.hass.description=Grablo IoT Core add-on for Home Assistant
+            io.hass.name=${{ steps.meta.outputs.name }}
+            io.hass.description=${{ steps.meta.outputs.name }} add-on for Home Assistant
             io.hass.arch=${{ matrix.arch }}
             io.hass.type=addon
             io.hass.url=https://grablo.co

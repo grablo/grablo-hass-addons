@@ -41,6 +41,20 @@ persist_to_data /var/lib/.syscache     syscache  # security key/salt
 persist_to_data /usr/lib/grablo/zigbee zigbee    # zigbee runtime + paired-device DB
 echo "[entrypoint] persistent dirs linked to ${DATA_DIR} (config/share/var/syscache/zigbee)"
 
+# 1c) Files that belong to the image, not to /data: the local screen (www/spot, port 8127) and the edition marker
+#     (product.json — Grablo Spot add-on only). persist_to_data uses `cp -an` (never overwrites), so refresh them from
+#     the image on every start — otherwise an add-on update never reaches them.
+SHARE=/usr/share/grablo
+if [ -d /opt/grablo-image ]; then
+    rm -rf "$SHARE/www"
+    [ -d /opt/grablo-image/www ] && cp -a /opt/grablo-image/www "$SHARE/www"
+    if [ -f /opt/grablo-image/product.json ]; then
+        cp -f /opt/grablo-image/product.json "$SHARE/product.json"
+    else
+        rm -f "$SHARE/product.json"
+    fi
+fi
+
 # 2) Library cache
 ldconfig /usr/lib/grablo 2>/dev/null || true
 

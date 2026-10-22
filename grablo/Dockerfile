@@ -5,6 +5,10 @@ ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
 ARG GRABLO_VERSION=1.20.0
+# Product (one controller source, version numbers per product — grablo-frontend docs/SPOT_RELEASE_CHANNEL.md):
+#   core → this add-on (grablo/, Reflex / Studio 1.x)      releases/grablo_<ver>_<arch>.deb
+#   spot → grablo-spot/ add-on (Grablo Spot 2.x)            releases/spot/grablo-spot_<ver>_<arch>.deb
+ARG GRABLO_PRODUCT=core
 ENV DEBIAN_FRONTEND=noninteractive \
     LD_LIBRARY_PATH=/usr/lib/grablo \
     GRABLO_CONTAINER=1 \
@@ -32,12 +36,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN set -eux; \
     arch="$(dpkg --print-architecture)"; \
-    curl -fsSL -o /tmp/grablo.deb \
-      "https://downloads.grablo.co/releases/grablo_${GRABLO_VERSION}_${arch}.deb"; \
+    case "${GRABLO_PRODUCT}" in \
+      core) url="https://downloads.grablo.co/releases/grablo_${GRABLO_VERSION}_${arch}.deb" ;; \
+      spot) url="https://downloads.grablo.co/releases/spot/grablo-spot_${GRABLO_VERSION}_${arch}.deb" ;; \
+      *) echo "GRABLO_PRODUCT must be core or spot" >&2; exit 1 ;; \
+    esac; \
+    curl -fsSL -o /tmp/grablo.deb "$url"; \
     dpkg-deb -x /tmp/grablo.deb /tmp/grablo-root; \
     cp -a /tmp/grablo-root/usr/bin/grablo /usr/bin/; \
     cp -a /tmp/grablo-root/usr/lib/grablo /usr/lib/; \
     cp -a /tmp/grablo-root/usr/share/grablo /usr/share/; \
+    # Image-owned copy: the entrypoint moves /usr/share/grablo onto /data (models, face DB) with `cp -an`, which never
+    # overwrites — the local screen (www/spot) and the edition marker (product.json) would stay at the first install's
+    # version. The entrypoint refreshes them from here on every start.
+    mkdir -p /opt/grablo-image; \
+    cp -a /tmp/grablo-root/usr/share/grablo/www /opt/grablo-image/www 2>/dev/null || true; \
+    cp -a /tmp/grablo-root/usr/share/grablo/product.json /opt/grablo-image/product.json 2>/dev/null || true; \
     rm -rf /tmp/grablo.deb /tmp/grablo-root; \
     ldconfig /usr/lib/grablo
 
